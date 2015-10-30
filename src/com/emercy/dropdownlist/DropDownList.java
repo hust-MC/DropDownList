@@ -1,5 +1,6 @@
 package com.emercy.dropdownlist;
 
+import android.R;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -23,6 +24,7 @@ public class DropDownList extends LinearLayout
 	String title;
 	OnDropListClickListener listener;
 	String[] items;
+	int currentIndex;
 
 	/**
 	 * 获取下拉列表的文本框
@@ -88,6 +90,11 @@ public class DropDownList extends LinearLayout
 		this.title = title;
 	}
 
+	public String getItem()
+	{
+		return textView.getText().toString();
+	}
+
 	/**
 	 * 设置选项框的标题。当前及下拉框时，会弹出根据相关数组所生产的选项框
 	 * 
@@ -100,6 +107,15 @@ public class DropDownList extends LinearLayout
 		setSelection(0);
 	}
 
+	public void setItem(int resourceId)
+	{
+		setItem(getResources().getStringArray(resourceId));
+	}
+
+	public int getCurrentIndex()
+	{
+		return currentIndex;
+	}
 	/**
 	 * 设置下拉菜单的当前选项
 	 * 
@@ -117,6 +133,7 @@ public class DropDownList extends LinearLayout
 			which = items.length - 1;
 		}
 
+		currentIndex = which;
 		textView.setText(items[which]);
 	}
 
@@ -148,7 +165,7 @@ public class DropDownList extends LinearLayout
 		@Override
 		public void onClick(DialogInterface dialog, int which)
 		{
-
+			currentIndex = which;
 			if (textView != null)
 			{
 				textView.setText(items[which]);
